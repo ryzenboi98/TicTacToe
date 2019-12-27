@@ -110,17 +110,16 @@ int count_moves(square *sq){
 
 void corners_pos(int corner[4]){
 
-    int k;
+    int k = 0;
 
     for(int i = 0; i < 4; i++)
     {
-        /* fix this */
-        k = i;
-
         if(!((i + 2) % 2))
-            corner[i] += 2;
+            k += 2;
         else
-            corner[i] += 4;
+            k += 4;
+
+        corner[i] = k;
     }
 
     for(int i = 0; i < 4; i++)
@@ -134,8 +133,6 @@ void pc_move(square *sq, int corn[4], int play[15]) {
 
     int random = rand() % 4;
     int moves = 0;
-
-    printf("\n%d\n", random);
 
     sq += 4;
     
@@ -151,19 +148,16 @@ void pc_move(square *sq, int corn[4], int play[15]) {
     printf("moves = %d\n", moves);
 
     sq += 4;
+
     if(sq->value != "-" && moves == 1)
     {
         sq -= 4;
-        printf("bruh");
-
-        printf("%d\n", corn[random]);
+        
         play[corn[random]] = 1;
         
-        /*
         sq += corn[random];
         sq->value = "O";
         sq -= corn[random];
-        */
     }
     else
     {
