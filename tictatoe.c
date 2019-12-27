@@ -69,14 +69,24 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
 
         sq += usr_choice-1;
 
-        if(sq->value != "-")
+        printf("user_choice = %d\n", usr_choice);
+
+        if(sq->value != "-" &&  usr_choice >= 1 && usr_choice <= 9)
         {
             sq -= usr_choice-1;
 
             printf("Someone already played there!\n");
             system("pause");
+            print_square(sq); 
+        }
+        else if(!(usr_choice >= 1 && usr_choice <= 9))
+        {
+            sq -= usr_choice-1;
+
+            printf("Choose a number between 1 and 9!\n");
+            system("pause");
+            system("cls");
             print_square(sq);
-            
         }
         else
         {
