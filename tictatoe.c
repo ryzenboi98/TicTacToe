@@ -66,17 +66,94 @@ void corners_pos(int corner[4]){
 
     for(int i = 0; i < 4; i++)
     {
+        corner[i] = k;
+
         if(!((i + 2) % 2))
             k += 2;
         else
             k += 4;
+    }
+}
 
-        corner[i] = k;
+int count_moves(square *sq) {
+
+    int count = 0;
+
+    for(int i = 0; i <= sizeof(*sq); i++)
+    {
+        if(sq->value != "-")
+        {
+            count++;
+        }
+        sq++;
     }
 
-    for(int i = 0; i < 4; i++)
+    return count;
+}
+
+int check_usr_p(int play[9], int corner[4]) {
+    
+        for(int i = 0; i < 9; i++)
+        {
+            for(int k = 0; k < 4; k++)
+            {
+                if(play[i] && i == corner[k])
+                    return i;
+            }
+        }
+
+        return 0;
+}
+
+void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
+
+    srand(time(NULL));
+    int random = rand() % 4;
+
+    int moves = 0;
+    moves = count_moves(sq);
+
+    // can´t count 9
+
+    //printf("moves = %d\n", moves);
+
+    if(moves == 1)
     {
-        printf("corner = %d\n", corner[i]);
+        sq += 4;
+        
+        if(sq->value == "-")
+        {
+            sq->value = "O";
+            play[4] = 1;
+
+            sq -= 4;
+        }
+        else
+        {
+             sq -= 4;
+
+            //printf("random = %d\n", random);
+            //printf("corner = %d\n", corn[random]);
+            
+            play[corn[random]] = 1;
+            
+            sq += corn[random];
+            sq->value = "O";
+            sq -= corn[random];
+        }
+    }
+    
+    //print_square(sq);
+    if(moves > 2)
+    {
+        if(play[4])
+        {
+            int corner;
+
+            corner = check_usr_p(usr_play,corn);
+
+            printf("corner = %d\n", corner);
+        }
     }
 }
 
@@ -121,94 +198,6 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
             print_square(sq);
         }
     }
-}
-
-int count_moves(square *sq) {
-
-    int count = 0;
-
-    for(int i = 0; i < sizeof(*sq); i++)
-    {
-        if(sq->value != "-")
-        {
-            count++;
-        }
-
-        printf("%s\n", sq->value);
-        sq++;
-    }
-
-    return count;
-}
-
-int check_usr_p(int play[9], int corner[4]) {
-    
-        for(int i = 0; i < 9; i++)
-        {
-            for(int k = 0; k < 4; k++)
-            {
-                if(play[i] && i == corner[k])
-                    return i;
-            }
-        }
-
-        return 0;
-}
-
-void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
-
-    srand(time(NULL));
-    int random = rand() % 4;
-
-    int moves = 0;
-    moves = count_moves(sq);
-
-    // can´t count 9
-
-    printf("moves = %d\n", moves);
-
-    if(moves == 1)
-    {
-        sq += 4;
-        
-        if(sq->value == "-")
-        {
-            sq->value = "O";
-            play[4] = 1;
-
-            sq -= 4;
-        }
-        else
-        {
-             sq -= 4;
-
-            printf("random = %d\n", random);
-            printf("corner = %d\n", corn[random]);
-            
-            play[corn[random]] = 1;
-            
-            sq += corn[random];
-            sq->value = "O";
-            sq -= corn[random];
-        }
-    }
-    
-    //print_square(sq);
-    
-    /*
-    if(moves > 2)
-    {
-        if(play[4])
-        {
-            printf("huehuehue");
-            int corner;
-
-            corner = check_usr_p(usr_play,corn);
-
-            printf("corner = %d\n", corner);
-        }
-    }
-    */
 }
 
 int main() {
