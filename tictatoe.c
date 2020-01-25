@@ -66,6 +66,7 @@ void corners_pos(int corner[4]){
 
     for(int i = 0; i < 4; i++)
     {
+        //printf("corners =%d\n", k);
         corner[i] = k;
 
         if(!((i + 2) % 2))
@@ -91,24 +92,57 @@ int count_moves(square *sq) {
     return count;
 }
 
-int check_usr_p(int play[9], int corner[4]) {
+int *check_usr_p(int play[9], int corner[4]) {
     
+    static int corner_p[4];
+    int j = 0;
+        
         for(int i = 0; i < 9; i++)
         {
             for(int k = 0; k < 4; k++)
             {
+                //printf("numb = %d\n", corner[k]);~
+
                 if(play[i] && i == corner[k])
-                    return i;
+                {
+                    corner_p[k] = i+1;
+                }
             }
         }
 
-        return 0;
+    return corner_p;
+}
+
+int random_losangle(int a, int b, int c, int d)
+{
+    int random = rand() % 4;
+
+    switch(random)
+    {
+        case 0:
+            return a;
+            break;
+        case 1:
+            return b;
+            break;
+        case 2:
+            return c;
+            break;
+        case 3:
+            return d;
+            break;
+
+        default:
+            break;
+    }
 }
 
 void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
 
     srand(time(NULL));
     int random = rand() % 4;
+    
+    int random_p;
 
     int moves = 0;
     moves = count_moves(sq);
@@ -146,13 +180,32 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
     //print_square(sq);
     if(moves > 2)
     {
+        //pc play
         if(play[4])
         {
-            int corner;
+            int *corner;
 
             corner = check_usr_p(usr_play,corn);
 
-            printf("corner = %d\n", corner);
+            //printf("size = %d\n", sizeof(corner));
+
+            for(int i = 0; i < sizeof(corner); i++)
+               printf("corner = %d\n", corner[i]);
+
+
+            if(corner[0] && corner[3] || corner[1] && corner[2])
+            {
+                //printf("YIKES!\n");
+                random_p = random_losangle(1,3,5,7); 
+                
+                play[random_p] = 1;
+
+                sq += random_p;
+                sq->value = "O";
+                sq -= random_p;
+            }
+
+            //check_if_win
         }
     }
 }
