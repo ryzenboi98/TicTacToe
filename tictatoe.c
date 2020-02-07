@@ -597,6 +597,7 @@ int draw(square *sq)
             count++;
 
         sq++;
+        //a
     }
 
     for(int i = 0; i <= sizeof(*sq); i++)
