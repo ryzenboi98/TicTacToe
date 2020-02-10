@@ -51,7 +51,7 @@ void print_square(square *sq) {
 int win(int play[15], int pc_play[15], square *sq)
 {
     for(int i = 0; i < 15; i++) {
-        if((play[i] && play[i+2] && play[i+4]) || play[i] && play[i+3] && play[i+6]
+        if((play[i] && play[i+2] && play[i+4] && i == 2) || play[i] && play[i+3] && play[i+6]
         || play[i] && play[i+4] && play[i+8] || ((i + 3) % 3 == 0) && play[i] && play[i+1] && play[i+2])
         {
             printf("USER WINS!\n");
@@ -59,11 +59,12 @@ int win(int play[15], int pc_play[15], square *sq)
             return 1;
         }
         
-        if((pc_play[i] && pc_play[i+2] && pc_play[i+4]) || (pc_play[i] && pc_play[i+4] && pc_play[i+8] && i == 0) || (pc_play[i] && pc_play[i+2] && pc_play[i+4] && i == 2) || pc_play[i] && pc_play[i+3] && pc_play[i+6]
+        if((pc_play[i] && pc_play[i+4] && pc_play[i+8] && i == 0) || (pc_play[i] && pc_play[i+2] && pc_play[i+4] && i == 2) || pc_play[i] && pc_play[i+3] && pc_play[i+6]
         || pc_play[i] && pc_play[i+4] && pc_play[i+8] || ((i + 3) % 3 == 0) && pc_play[i] && pc_play[i+1] && pc_play[i+2])
         {
             printf("PC WINS!\n");
             system("pause");
+
             return 2;
         }
     }
@@ -152,15 +153,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
     int a = 0;
     int con = 0;
     
-    /*
-    for(int i = 0; i < 15; i++)
-    {
-        if(play[15])
-            con++;
-    }
-    */
-   
      for(int i = 0; i < 15; i++) {
+         
          
         if((usr_play[i] && usr_play[i+1] && !usr_play[i+2] && !play[i+2] && i != 2 && i != 5 && i != 8))
          {
@@ -257,11 +251,10 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
             }
         }
 
-        if(usr_play[i] && usr_play[i+2] && !usr_play[i+4] && !usr_play[i+4] && (i == 2 || i == 4))
+        if(usr_play[i] && usr_play[i+2] && !play[i+4] && (i == 2 || i == 4))
         {
              
-
-            if(!i)
+            if(i == 2)
             {
                 a = 1;
 
@@ -377,6 +370,7 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                  
                 if(i == 2)
                 {
+                   
                     a = 1;
                     usr_play[i+4] = 1;
                     sq = sq + (i+4);
@@ -622,15 +616,16 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
     
         if(sq->value != "-" &&  usr_choice >= 1 && usr_choice <= 9)
         {
-            //sq -= usr_choice-1;
+            sq -= usr_choice-1;
 
             printf("Someone already played there!\n");
             system("pause");
+            system("cls");
             print_square(sq); 
         }
         else if(!(usr_choice >= 1 && usr_choice <= 9))
         {
-            //sq -= usr_choice-1;
+            sq -= usr_choice-1;
 
             printf("Choose a number between 1 and 9!\n");
             system("pause");
@@ -652,6 +647,7 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
 
         if(draw(sq))
         {
+
             printf("It's a draw!\n");
             system("pause");
             break;
@@ -693,12 +689,11 @@ int main() {
                 
                 system("cls");
 
-                print_square(sq);
+                //print_square(sq);
                 default_square(sq);
                 default_play(usr_play);
                 default_play(pc_play);
                 
-                system("pause");
                 system("cls");
 
                 break;
