@@ -50,14 +50,35 @@ void print_square(square *sq) {
 
 int win(int play[15], int pc_play[15], square *sq)
 {
+
+    /*
+     for(int i = 0; i < 15; i++)
+     {
+        printf("%d -> %d\t",i , play[i]);
+     }
+     printf("\n\n");
+
+     for(int i = 0; i < 15; i++)
+     {
+        printf("%d -> %d\t",i , pc_play[i]);
+     }
+
+    system("pause");
+    
+    */
+    
+
     for(int i = 0; i < 15; i++) {
-        if((play[i] && play[i+2] && play[i+4] && i == 2) || play[i] && play[i+3] && play[i+6]
+
+        if((play[i] && play[i+4] && play[i+8] && i == 0) || (play[i] && play[i+2] && play[i+4] && i == 2) || (play[i] && play[i+3] && play[i+6])
         || play[i] && play[i+4] && play[i+8] || ((i + 3) % 3 == 0) && play[i] && play[i+1] && play[i+2])
         {
             printf("USER WINS!\n");
+            system("pause");
             
             return 1;
         }
+        
         
         if((pc_play[i] && pc_play[i+4] && pc_play[i+8] && i == 0) || (pc_play[i] && pc_play[i+2] && pc_play[i+4] && i == 2) || pc_play[i] && pc_play[i+3] && pc_play[i+6]
         || pc_play[i] && pc_play[i+4] && pc_play[i+8] || ((i + 3) % 3 == 0) && pc_play[i] && pc_play[i+1] && pc_play[i+2])
@@ -67,6 +88,7 @@ int win(int play[15], int pc_play[15], square *sq)
 
             return 2;
         }
+        
     }
     
     return 0;
@@ -170,6 +192,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq->value = "O";
                 sq = sq - (i+2);
 
+                break;
+
             }
             else if(!play[i-1])
             {
@@ -180,6 +204,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i-1);
                 sq->value = "O";
                 sq = sq - (i-1);
+
+                break;
             }
 
             
@@ -194,6 +220,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
             sq = sq + (i+1);
             sq->value = "O";
             sq = sq - (i+1);
+
+            break;
         }
 
         if((usr_play[i] && usr_play[i+3] && !usr_play[i+6] && !play[i+6] && i != 6 && i != 7 && i != 8))
@@ -207,6 +235,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i+6);
                 sq->value = "O";
                 sq = sq - (i+6);
+
+                break;
             }
             else if(!play[i-3])
             {
@@ -216,6 +246,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i-3);
                 sq->value = "O";
                 sq = sq - (i-3);
+
+                break;
             }
         }
 
@@ -227,6 +259,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
             sq = sq + (i+3);
             sq->value = "O";
             sq = sq - (i+3);
+
+            break;
         }
 
         if(usr_play[i] && usr_play[i+4] && !usr_play[i+8] && !play[i+8] && (i == 0 || i == 4))
@@ -240,6 +274,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i+8);
                 sq->value = "O";
                 sq = sq - (i+8);
+
+                break;
             }
             else if(!play[i-4])
             {
@@ -248,6 +284,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i-4);
                 sq->value = "O";
                 sq = sq - (i-4);
+
+                break;
             }
         }
 
@@ -262,6 +300,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i+4);
                 sq->value = "O";
                 sq = sq - (i+4);
+
+                break;
             }
             else if(!play[i-2])
             {
@@ -271,6 +311,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i-2);
                 sq->value = "O";
                 sq = sq - (i-2);
+
+                break;
             }
         }
     }
@@ -291,6 +333,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i+2);
                     sq->value = "O";
                     sq = sq - (i+2);
+
+                    break;
                 }
                 else if(!u_play[i-1])
                 {
@@ -299,6 +343,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i-1);
                     sq->value = "O";
                     sq = sq - (i-1);
+
+                    break;
                 }
             }
 
@@ -310,6 +356,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i+1);
                 sq->value = "O";
                 sq = sq - (i+1);
+
+                break;
             }
 
             if((usr_play[i] && usr_play[i+3] && !u_play[i+6] && i != 6 && i != 7 && i != 8))
@@ -322,6 +370,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i+6);
                     sq->value = "O";
                     sq = sq - (i+6);
+
+                    break;
                 }
                 else if(!u_play[i-3])
                 {
@@ -330,6 +380,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i-3);
                     sq->value = "O";
                     sq = sq - (i-3);
+
+                    break;
                 }
             }
 
@@ -341,6 +393,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                 sq = sq + (i+3);
                 sq->value = "O";
                 sq = sq - (i+3);
+                
+                break;
             }
 
             if(usr_play[i] && usr_play[i+4] && !u_play[i+8] && (i == 0 || i == 4))
@@ -354,6 +408,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i+8);
                     sq->value = "O";
                     sq = sq - (i+8);
+
+                    break;
                 }
                 else if(!u_play[i-4])
                 {
@@ -362,6 +418,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i-4);
                     sq->value = "O";
                     sq = sq - (i-4);
+
+                    break;
                 }
             }
 
@@ -376,6 +434,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i+4);
                     sq->value = "O";
                     sq = sq - (i+4);
+
+                    break;
                 }
                 else if(!u_play[i-2])
                 {
@@ -384,6 +444,8 @@ int p2defend(square *sq, int usr_play[15],int play[15]) {
                     sq = sq + (i-2);
                     sq->value = "O";
                     sq = sq - (i-2);
+
+                    break;
                 }
             }
         }
@@ -404,15 +466,10 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
     if(moves >= 3)
     {   
         aux = p2win(sq, usr_play, play);
-       //  if(!aux)
-          //  exit(0);
 
         if(!aux)
             aux = p2defend(sq, usr_play, play);
-
     }
-
-    //printf("moves = %d\n", moves);
 
     if(moves == 1)
     {
@@ -445,9 +502,6 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
 
     if(moves == 3)
     {
-        //pc pla
-    
-
         if(play[4])
         {
 
@@ -496,16 +550,11 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
 
         if(cont)
         {
-           
-
             if(play[random_a] || usr_play[random_a])
             {
                 while(play[random_a] || usr_play[random_a])
-                {
-                
                     random_a = random_losangle(0,2,6,8);
                 
-                }
                 play[random_a] = 1;
 
             sq += random_a;
@@ -514,14 +563,19 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
             }
             else
             {
-             play[random_a] = 1;
+                /*
+                if()
+                {
 
-            sq += random_a;
-            sq->value = "O";
-            sq -= random_a;   
+                }
+                */
+
+                play[random_a] = 1;
+
+                sq += random_a;
+                sq->value = "O";
+                sq -= random_a;   
             }
-            
-
             
         }
         else
@@ -551,10 +605,6 @@ void pc_move(square *sq, int corn[4], int play[15], int usr_play[15]) {
             }
         }
         
-
-        
-        
-
         /*
         int *a_corners;
         int random_a = 0;
@@ -607,13 +657,13 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
 
     int usr_choice;
     
-    while(!win(play,pc_p,sq)) {
+    while(!win(play, pc_p, sq)) {
         printf("\nChoose the position: ");
         scanf("%d",&usr_choice);
 
         sq = sq + (usr_choice-1);
 
-    
+  
         if(sq->value != "-" &&  usr_choice >= 1 && usr_choice <= 9)
         {
             sq -= usr_choice-1;
@@ -639,6 +689,11 @@ void play(square *sq, int play[9],int pc_p[9], int corn[4]) {
             
             sq->value = "X";
             sq = sq - (usr_choice-1);
+
+            if(win(play, pc_p, sq))
+            {
+                break;
+            }
             
             system("cls");
             pc_move(sq, corn, pc_p, play);
